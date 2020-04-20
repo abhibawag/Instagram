@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -40,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void done(ParseUser user, ParseException e) {
                         if(user!=null && e==null){
                             TastyToast.makeText(LoginActivity.this, user.getUsername().toString() + " Logged In Successfully!", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+                            transitionToSocialMediaActivity();
                         }else{
                             TastyToast.makeText(LoginActivity.this, e.getMessage(), TastyToast.LENGTH_SHORT, TastyToast.ERROR).show();
                         }
@@ -56,7 +58,32 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
+                ParseUser.logOut();
             }
         });
     }
+
+
+    //hiding keyboard when user taps in an empty area
+    public void loginLayoutTapped(View view){
+
+        try {
+
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    //to transit to social media activity
+    private void transitionToSocialMediaActivity(){
+
+        Intent intent = new Intent(LoginActivity.this, SocialMediaActivity.class);
+        startActivity(intent);
+
+    }
+
 }

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#CF4753"
+    android:onClick="loginLayoutTapped"
     tools:context=".LoginActivity">
 
     <ImageView

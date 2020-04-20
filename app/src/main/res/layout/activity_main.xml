@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#CF4753"
+    android:onClick="rootLayoutTapped"
     tools:context=".MainActivity">
 
     <ImageView
@@ -86,7 +87,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="45dp"
+        android:layout_marginBottom="52dp"
         android:text="Here, you can create you new account and go to login "
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.strictmode.IntentReceiverLeakedViolation;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -36,10 +37,11 @@ public class MainActivity extends AppCompatActivity {
 
         //Log out currently logged user
         if(ParseUser.getCurrentUser() != null){
-            String currentUser = ParseUser.getCurrentUser().getUsername().toString()+"";
-            ParseUser.getCurrentUser().logOut();
-            TastyToast.makeText(MainActivity.this, currentUser + " Logged Out", TastyToast.LENGTH_SHORT, TastyToast.DEFAULT).show();
+//            String currentUser = ParseUser.getCurrentUser().getUsername().toString()+"";
+//            ParseUser.getCurrentUser().logOut();
+//            TastyToast.makeText(MainActivity.this, currentUser + " Logged Out", TastyToast.LENGTH_SHORT, TastyToast.DEFAULT).show();
 
+            transitionToSocialMediaActivity();
         }
 
 
@@ -84,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
                             TastyToast.makeText(getApplicationContext(), appUser.getUsername().toString()+" Signed Up Successfully!", TastyToast.LENGTH_LONG, TastyToast.SUCCESS).show();
 
+                            transitionToSocialMediaActivity();
                         }
                         progressDialog.dismiss();
 
@@ -104,4 +107,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    //hiding keyboard when user taps in an empty area
+    public void rootLayoutTapped(View view){
+
+        try {
+
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+    //to transit to social media activity
+    private void transitionToSocialMediaActivity(){
+
+        Intent intent = new Intent(MainActivity.this, SocialMediaActivity.class);
+        startActivity(intent);
+
+    }
+
 }
